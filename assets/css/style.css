@@ -5,6 +5,10 @@ body {
     line-height: 1;
   }
   
+  .form-color {
+    background-color: #d3d3d3;
+  }
+
   .textarea{
     background: transparent;
     border: none;
@@ -66,4 +70,5 @@ body {
     font-size: 20px;
     transition: all .3s ease-in-out;
   }
+
   
