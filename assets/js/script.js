@@ -1,3 +1,5 @@
+
+//Begin by creating a template for an object and use the method constructor to initialize
 class TimeblockObj {
     constructor(hour, todo) {
         this.hour = hour;
@@ -94,3 +96,52 @@ function appendTimeblockColumns(timeblockRow, hourCol, textAreaCol, saveBtnCol) 
     }
 }
 
+function containerClicked(event, timeblockList) {
+    if (isSaveButton(event)) {
+        const timeblockHour = getTimeblockHour(event);
+        const textAreaValue = getTextAreaValue(timeblockHour);
+        placeTimeblockInList(new TimeblockObj(timeblockHour, textAreaValue), timeblockList);
+        saveTimeblockList(timeblockList);
+    }
+}
+
+function isSaveButton(event) {
+    return event.target.matches('button') || event.target.matches('.fa-save');
+}
+
+function getTimeblockHour(event) {
+    return event.target.matches('.fa-save') ? event.target.parentElement.dataset.hour : event.target.dataset.hour;
+}
+
+//Implemented template literals and string interpolation to select the timeblockHour value needed
+function getTextAreaValue(timeblockHour) {
+    return document.querySelector(`#timeblock-${timeblockHour} textarea`).value;
+}
+
+function placeTimeblockInList(newTimeblockObj, timeblockList) {
+    if (timeblockList.length > 0) {
+        for (let savedTimeblock of timeblockList) {
+            if (savedTimeblock.hour === newTimeblockObj.hour) {
+                savedTimeblock.todo = newTimeblockObj.todo;
+                return;
+            }
+        }
+    }
+    timeblockList.push(newTimeblockObj);
+    return;
+}
+
+function saveTimeblockList(timeblockList) {
+    localStorage.setItem('timeblockObjects', JSON.stringify(timeblockList));
+}
+
+function setTimeblockText(timeblockList) {
+    if (timeblockList.length === 0) {
+        return;
+    } else {
+        for (let timeblock of timeblockList) {
+            document.querySelector(`#timeblock-${timeblock.hour} textarea`)
+                .value = timeblock.todo;
+        }
+    }
+}
