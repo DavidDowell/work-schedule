@@ -20,4 +20,6 @@
 * WHEN I refresh the page
 * THEN the saved events persist
 
+https://daviddowell.github.io/work-schedule/
+
 ![](05-third-party-apis-homework-demo.gif)
